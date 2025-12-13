@@ -1,8 +1,15 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using BBDown_GUI.Models;
+using BBDown_GUI.Services.Config;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BBDown_GUI.ViewModels;
 
-public partial class MainViewModel : ViewModelBase
+public partial class MainViewModel : ObservableRecipient
 {
-    [ObservableProperty] private string _greeting = "Welcome to Avalonia!";
+    public ConfigModel Config { get; }
+
+    public MainViewModel(ConfigHandler handler)
+    {
+        Config = handler.Data;
+    }
 }

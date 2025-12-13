@@ -1,11 +1,16 @@
+using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
+using BBDown_GUI.Abstraction;
+using BBDown_GUI.Services.Config;
+using BBDown_GUI.Shared;
 using BBDown_GUI.ViewModels;
 using BBDown_GUI.Views;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace BBDown_GUI;
 
@@ -18,6 +23,7 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        StartHost();
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
@@ -44,5 +50,26 @@ public partial class App : Application
         {
             BindingPlugins.DataValidators.Remove(plugin);
         }
+    }
+
+    private void StartHost()
+    {
+        IAppHost.Host = Host
+            .CreateDefaultBuilder()
+            .UseContentRoot(AppContext.BaseDirectory)
+            .ConfigureServices(services =>
+            {
+                #if ANDROID
+                    var configService = new AndroidConfigService();
+                #else
+                    var configService = new DesktopConfigService();
+                #endif
+                services.AddSingleton<IConfigService>(configService);
+                services.AddSingleton<ConfigHandler>();
+                services.AddTransient<MainViewModel>();
+            })
+            .Build();
+
+        GlobalConstants.Config = IAppHost.GetService<ConfigHandler>();
     }
 }

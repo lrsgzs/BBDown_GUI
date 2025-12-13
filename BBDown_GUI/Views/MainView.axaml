@@ -9,5 +9,5 @@
              x:DataType="views:MainView"
              d:DataContext="{d:DesignInstance views:MainView}"
              Unloaded="OnUnloaded">
-  <TextBlock Text="{Binding ViewModel.Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <TextBox Text="{Binding ViewModel.Config.Test}" />
 </UserControl>
