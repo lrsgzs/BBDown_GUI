@@ -1,0 +1,19 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:faStyling="clr-namespace:FluentAvalonia.Styling;assembly=FluentAvalonia"
+             xmlns:faWindowing="clr-namespace:FluentAvalonia.UI.Windowing;assembly=FluentAvalonia"
+             xmlns:local="using:BBDown_GUI"
+             x:Class="BBDown_GUI.App"
+             RequestedThemeVariant="Default">
+     <Application.Styles>
+         <faStyling:FluentAvaloniaTheme PreferSystemTheme="True" PreferUserAccentColor="True" />
+
+         <Style Selector=":is(faWindowing|AppWindow)">
+             <Setter Property="Icon" Value="/Assets/AppLogo.png"/>
+             <Setter Property="FontFamily" Value="{DynamicResource MapleMonoNfCn}"/>
+         </Style>
+     </Application.Styles>
+    <Application.Resources>
+        <FontFamily x:Key="MapleMonoNfCn">avares://BBDown_GUI/Assets/Fonts/MapleMono-NF-CN-Regular.ttf#Maple Mono NF CN</FontFamily>
+    </Application.Resources>
+</Application>
