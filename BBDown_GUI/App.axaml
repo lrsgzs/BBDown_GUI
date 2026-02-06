@@ -1,7 +1,7 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:faStyling="clr-namespace:FluentAvalonia.Styling;assembly=FluentAvalonia"
-             xmlns:faWindowing="clr-namespace:FluentAvalonia.UI.Windowing;assembly=FluentAvalonia"
+             xmlns:faStyling="using:FluentAvalonia.Styling"
+             xmlns:faWindowing="using:FluentAvalonia.UI.Windowing"
              xmlns:local="using:BBDown_GUI"
              x:Class="BBDown_GUI.App"
              RequestedThemeVariant="Default">
@@ -13,7 +13,9 @@
              <Setter Property="FontFamily" Value="{DynamicResource MapleMonoNfCn}"/>
          </Style>
      </Application.Styles>
+    
     <Application.Resources>
-        <FontFamily x:Key="MapleMonoNfCn">avares://BBDown_GUI/Assets/Fonts/MapleMono-NF-CN-Regular.ttf#Maple Mono NF CN</FontFamily>
+        <FontFamily x:Key="MapleMonoNfCn">avares://BBDown_GUI/Assets/Fonts/#Maple Mono NF CN</FontFamily>
+        <FontFamily x:Key="FluentSystemIconsResizeable">avares://BBDown_GUI/Assets/Fonts/#FluentSystemIcons-Resizable</FontFamily>
     </Application.Resources>
 </Application>

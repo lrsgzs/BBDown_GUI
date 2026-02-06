@@ -1,30 +1,103 @@
+using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using BBDown_GUI.Abstraction;
+using BBDown_GUI.Attributes;
+using BBDown_GUI.Controls;
+using BBDown_GUI.Services;
 using BBDown_GUI.Services.Config;
 using BBDown_GUI.ViewModels;
+using DynamicData;
+using FluentAvalonia.UI.Controls;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BBDown_GUI.Views;
 
 public partial class MainView : UserControl
 {
     public MainViewModel ViewModel { get; } = IAppHost.GetService<MainViewModel>();
+    private const string DefaultMainPageId = "home";
     
     public MainView()
     {
         DataContext = this;
         InitializeComponent();
+
+        BuildNavigationMenuItems();
         
         RenderOptions.SetTextRenderingMode(this, TextRenderingMode.Antialias);
         RenderOptions.SetBitmapInterpolationMode(this, BitmapInterpolationMode.HighQuality);
         RenderOptions.SetEdgeMode(this, EdgeMode.Antialias);
+    }
+
+    private void OnLoaded(object? sender, RoutedEventArgs e)
+    {
+        SelectNavigationItemById(DefaultMainPageId);
     }
     
     private void OnUnloaded(object? sender, RoutedEventArgs e)
     {
         DataContext = null;
         IAppHost.GetService<ConfigHandler>().Save();
+    }
+
+    private void BuildNavigationMenuItems()
+    {
+        ViewModel.NavigationViewItems.Clear();
+        ViewModel.NavigationViewFooterItems.Clear();
+        
+        ViewModel.NavigationViewItems
+            .AddRange(MainPagesRegistryService.Items
+                .Select(item => new NavigationViewItem
+                {
+                    IconSource = new FluentIconSource(item.IconGlyph),
+                    Content = item.Name,
+                    Tag = item
+                }));
+        
+        ViewModel.NavigationViewFooterItems
+            .AddRange(MainPagesRegistryService.FooterItems
+                .Select(info => new NavigationViewItem
+                {
+                    IconSource = new FluentIconSource(info.IconGlyph),
+                    Content = info.Name,
+                    Tag = info
+                }));
+    }
+
+    private void SelectNavigationItemById(string id)
+    {
+        var info = MainPagesRegistryService.Items.FirstOrDefault(info => info.Id == id) ??
+                   MainPagesRegistryService.FooterItems.FirstOrDefault(info => info.Id == id);
+        
+        if (info != null)
+        {
+            CoreNavigate(info);
+        }
+    }
+    
+    private void SelectNavigationItem(MainPageInfo info)
+    {
+        var item = ViewModel.NavigationViewItems.FirstOrDefault(item => Equals(item.Tag, info)) ??
+                   ViewModel.NavigationViewFooterItems.FirstOrDefault(item => Equals(item.Tag, info));
+        ViewModel.SelectedNavigationViewItem = item;
+    }
+
+    private void CoreNavigate(MainPageInfo info)
+    {
+        ViewModel.FrameContent = null;
+        SelectNavigationItem(info);
+        ViewModel.SelectedPageInfo = info;
+        ViewModel.FrameContent = IAppHost.Host!.Services.GetKeyedService<UserControl>(info.Id);
+    }
+    
+    private void NavigationView_OnItemInvoked(object? sender, NavigationViewItemInvokedEventArgs e)
+    {
+        if (e.InvokedItemContainer is NavigationViewItem { Tag: MainPageInfo info })
+        {
+            CoreNavigate(info);
+        }
     }
 }

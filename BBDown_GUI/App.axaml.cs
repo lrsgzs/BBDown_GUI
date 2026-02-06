@@ -5,9 +5,11 @@ using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
 using BBDown_GUI.Abstraction;
+using BBDown_GUI.Extensions.Registry;
 using BBDown_GUI.Services.Config;
 using BBDown_GUI.ViewModels;
 using BBDown_GUI.Views;
+using BBDown_GUI.Views.MainPages;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -61,6 +63,9 @@ public partial class App : Application
                 services.AddSingleton<ConfigService>();
                 services.AddSingleton<ConfigHandler>();
                 services.AddTransient<MainViewModel>();
+                
+                services.AddMainPage<HomePage>();
+                services.AddMainPageFooter<SettingsPage>();
             })
             .Build();
 

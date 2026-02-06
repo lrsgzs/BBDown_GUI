@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:BBDown_GUI.Controls"
+             mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="40"
+             x:Class="BBDown_GUI.Controls.IconText">
+    <StackPanel Orientation="Horizontal" Spacing="{Binding $parent[controls:IconText].Spacing, Mode=OneWay}">
+        <controls:FluentIcon Glyph="{Binding $parent[controls:IconText].Glyph, Mode=OneWay}"
+                       VerticalAlignment="Center"
+                       FontSize="16">
+            <controls:FluentIcon.IsVisible>
+                <Binding Path="$parent[controls:IconText].Glyph" Converter="{x:Static StringConverters.IsNotNullOrEmpty}" />
+            </controls:FluentIcon.IsVisible>
+        </controls:FluentIcon>
+        <TextBlock Text="{Binding $parent[controls:IconText].Text}"
+                   VerticalAlignment="Center"
+                   LineSpacing="0"
+                   Margin="0 0 0 -4"
+                   x:Name="TextElement"
+                   IsVisible="{Binding $parent[controls:IconText].Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+    </StackPanel>
+</UserControl>
