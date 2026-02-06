@@ -7,9 +7,9 @@ namespace BBDown_GUI.Services.Config;
 public class ConfigHandler
 {
     public ConfigModel Data { get; private set; }
-    private IConfigService ConfigService { get; }
+    private ConfigService ConfigService { get; }
     
-    public ConfigHandler(IConfigService configService)
+    public ConfigHandler(ConfigService configService)
     {
         ConfigService = configService;
         Data = new ConfigModel();

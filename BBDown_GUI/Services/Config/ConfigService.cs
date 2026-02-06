@@ -5,9 +5,16 @@ using BBDown_GUI.Models;
 
 namespace BBDown_GUI.Services.Config;
 
-public class AndroidConfigService : BaseConfigService
+public class ConfigService
 {
-    public override ConfigModel LoadConfig()
+    public readonly string ConfigFileName = "config.json";
+    public readonly JsonSerializerOptions JsonOptions = new()
+    {
+        WriteIndented = true,
+        PropertyNameCaseInsensitive = true
+    };
+    
+    public ConfigModel LoadConfig()
     {
         var filePath = GetConfigFilePath();
 
@@ -17,7 +24,7 @@ public class AndroidConfigService : BaseConfigService
         return JsonSerializer.Deserialize<ConfigModel>(json, JsonOptions) ?? new ConfigModel();
     }
     
-    public override void SaveConfig(ConfigModel config)
+    public void SaveConfig(ConfigModel config)
     {
         var filePath = GetConfigFilePath();
         var directory = Path.GetDirectoryName(filePath);
@@ -33,8 +40,8 @@ public class AndroidConfigService : BaseConfigService
     
     private string GetConfigFilePath()
     {
-        // Android 内部存储，应用私有目录
-        var personal = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-        return Path.Combine(personal, ConfigFileName);
+        var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        var appName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name ?? "BBDown_GUI";
+        return Path.Combine(appData, appName, "Config", ConfigFileName);
     }
 }

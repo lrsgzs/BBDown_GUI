@@ -58,16 +58,7 @@ public partial class App : Application
             .UseContentRoot(AppContext.BaseDirectory)
             .ConfigureServices(services =>
             {
-                IConfigService configService;
-                if (OperatingSystem.IsAndroid())
-                {
-                    configService = new AndroidConfigService();
-                }
-                else
-                {
-                    configService = new DesktopConfigService();
-                }
-                services.AddSingleton(configService);
+                services.AddSingleton<ConfigService>();
                 services.AddSingleton<ConfigHandler>();
                 services.AddTransient<MainViewModel>();
             })
