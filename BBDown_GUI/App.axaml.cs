@@ -30,11 +30,14 @@ public partial class App : Application
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
             // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
             DisableAvaloniaDataAnnotationValidation();
-            desktop.MainWindow = new MainWindow();
+            desktop.MainWindow = new MainWindow
+            {
+                Content = IAppHost.GetService<MainView>()
+            };
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            singleViewPlatform.MainView = new MainView();
+            singleViewPlatform.MainView = IAppHost.GetService<MainView>();
         }
 
         base.OnFrameworkInitializationCompleted();
@@ -62,6 +65,7 @@ public partial class App : Application
             {
                 services.AddSingleton<ConfigService>();
                 services.AddSingleton<ConfigHandler>();
+                services.AddSingleton<MainView>();
                 services.AddTransient<MainViewModel>();
                 
                 services.AddMainPage<HomePage>();
