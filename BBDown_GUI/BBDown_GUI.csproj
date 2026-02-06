@@ -20,5 +20,6 @@
         <PackageReference Include="CommunityToolkit.Mvvm"/>
         <PackageReference Include="FluentAvaloniaUI" />
         <PackageReference Include="Microsoft.Extensions.Hosting" />
+        <ProjectReference Include="..\BBDown\BBDown.csproj" />
     </ItemGroup>
 </Project>

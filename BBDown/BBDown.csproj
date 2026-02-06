@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>library</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Version>1.6.3</Version>
+    <Description>BBDown是一个免费且便捷高效的哔哩哔哩下载/解析软件.</Description>
+    <PackageProjectUrl>https://github.com/nilaoda/BBDown</PackageProjectUrl>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="QRCoder" />
+    <PackageReference Include="SharpZipLib" />
+    <PackageReference Include="System.CommandLine" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BBDown.Core\BBDown.Core.csproj" />
+  </ItemGroup>
+
+</Project>

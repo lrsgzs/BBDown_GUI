@@ -22,7 +22,7 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        StartHost();
+        BuildHost();
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
@@ -51,7 +51,7 @@ public partial class App : Application
         }
     }
 
-    private void StartHost()
+    private void BuildHost()
     {
         IAppHost.Host = Host
             .CreateDefaultBuilder()
