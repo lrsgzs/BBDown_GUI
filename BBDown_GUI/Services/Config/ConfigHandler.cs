@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.IO;
+﻿using System.ComponentModel;
 using BBDown_GUI.Abstraction;
 using BBDown_GUI.Models;
 

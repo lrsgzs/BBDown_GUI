@@ -6,7 +6,6 @@ using System.Linq;
 using Avalonia.Markup.Xaml;
 using BBDown_GUI.Abstraction;
 using BBDown_GUI.Services.Config;
-using BBDown_GUI.Shared;
 using BBDown_GUI.ViewModels;
 using BBDown_GUI.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -70,6 +69,6 @@ public partial class App : Application
             })
             .Build();
 
-        GlobalConstants.Config = IAppHost.GetService<ConfigHandler>();
+        IAppHost.GetService<ConfigHandler>();
     }
 }
