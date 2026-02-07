@@ -63,14 +63,21 @@ public partial class App : Application
             .UseContentRoot(AppContext.BaseDirectory)
             .ConfigureServices(services =>
             {
+                // 配置
                 services.AddSingleton<ConfigService>();
                 services.AddSingleton<ConfigHandler>();
+                
+                // 主窗口
                 services.AddSingleton<MainView>();
                 services.AddTransient<MainViewModel>();
                 
+                // 界面 Views
                 services.AddMainPage<HomePage>();
                 services.AddMainPageFooter<SettingsPage>();
+                services.AddMainPageFooterSeparator();
                 services.AddMainPageFooter<AboutPage>();
+                
+                // 界面 ViewModels
             })
             .Build();
 

@@ -15,9 +15,21 @@ public static class MainPagesRegistryExtensions
         return services.AddMainPageTo<T>(MainPagesRegistryService.Items);
     }
     
+    public static IServiceCollection AddMainPageSeparator(this IServiceCollection services)
+    {
+        MainPagesRegistryService.Items.Add(new MainPageInfo(true));
+        return services;
+    }
+    
     public static IServiceCollection AddMainPageFooter<T>(this IServiceCollection services) where T : UserControl
     {
         return services.AddMainPageTo<T>(MainPagesRegistryService.FooterItems);
+    }
+    
+    public static IServiceCollection AddMainPageFooterSeparator(this IServiceCollection services)
+    {
+        MainPagesRegistryService.FooterItems.Add(new MainPageInfo(true));
+        return services;
     }
 
     private static IServiceCollection AddMainPageTo<T>(this IServiceCollection services, IList<MainPageInfo> list) where T : UserControl

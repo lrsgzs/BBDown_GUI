@@ -50,21 +50,11 @@ public partial class MainView : UserControl
         
         ViewModel.NavigationViewItems
             .AddRange(MainPagesRegistryService.Items
-                .Select(item => new NavigationViewItem
-                {
-                    IconSource = new FluentIconSource(item.IconGlyph),
-                    Content = item.Name,
-                    Tag = item
-                }));
+                .Select(info => info.ToNavigationViewItemBase()));
         
         ViewModel.NavigationViewFooterItems
             .AddRange(MainPagesRegistryService.FooterItems
-                .Select(info => new NavigationViewItem
-                {
-                    IconSource = new FluentIconSource(info.IconGlyph),
-                    Content = info.Name,
-                    Tag = info
-                }));
+                .Select(info => info.ToNavigationViewItemBase()));
     }
 
     private void SelectNavigationItemById(string id)

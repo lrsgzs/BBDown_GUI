@@ -13,9 +13,9 @@ public partial class MainViewModel : ObservableRecipient
     
     [ObservableProperty] private object? _frameContent;
     [ObservableProperty] private MainPageInfo? _selectedPageInfo = null;
-    [ObservableProperty] private NavigationViewItem? _selectedNavigationViewItem = null;
-    public ObservableCollection<NavigationViewItem> NavigationViewItems { get; } = [];
-    public ObservableCollection<NavigationViewItem> NavigationViewFooterItems { get; } = [];
+    [ObservableProperty] private NavigationViewItemBase? _selectedNavigationViewItem = null;
+    public ObservableCollection<NavigationViewItemBase> NavigationViewItems { get; } = [];
+    public ObservableCollection<NavigationViewItemBase> NavigationViewFooterItems { get; } = [];
 
     public MainViewModel(ConfigHandler handler)
     {
