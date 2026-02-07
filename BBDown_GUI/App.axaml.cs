@@ -70,6 +70,7 @@ public partial class App : Application
                 
                 services.AddMainPage<HomePage>();
                 services.AddMainPageFooter<SettingsPage>();
+                services.AddMainPageFooter<AboutPage>();
             })
             .Build();
 

@@ -3,10 +3,10 @@ using BBDown_GUI.Attributes;
 
 namespace BBDown_GUI.Views.MainPages;
 
-[MainPageInfo("主页", "home", "\uE994")]
-public partial class HomePage : UserControl
+[MainPageInfo("关于 BBDown_GUI", "about", "\uE9E4")]
+public partial class AboutPage : UserControl
 {
-    public HomePage()
+    public AboutPage()
     {
         InitializeComponent();
     }
