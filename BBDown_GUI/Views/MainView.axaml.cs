@@ -100,4 +100,9 @@ public partial class MainView : UserControl
             CoreNavigate(info);
         }
     }
+
+    private void TogglePaneButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        NavigationView.IsPaneOpen = !NavigationView.IsPaneOpen;
+    }
 }

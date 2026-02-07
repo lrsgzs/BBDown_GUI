@@ -3,6 +3,7 @@
              xmlns:faStyling="using:FluentAvalonia.Styling"
              xmlns:faWindowing="using:FluentAvalonia.UI.Windowing"
              xmlns:local="using:BBDown_GUI"
+             xmlns:views="using:BBDown_GUI.Views"
              x:Class="BBDown_GUI.App"
              RequestedThemeVariant="Default">
      <Application.Styles>
@@ -10,6 +11,10 @@
 
          <Style Selector=":is(faWindowing|AppWindow)">
              <Setter Property="Icon" Value="/Assets/AppLogo.png"/>
+             <Setter Property="FontFamily" Value="{DynamicResource MapleMonoNfCn}"/>
+         </Style>
+         
+         <Style Selector=":is(views|MainView)">
              <Setter Property="FontFamily" Value="{DynamicResource MapleMonoNfCn}"/>
          </Style>
      </Application.Styles>
