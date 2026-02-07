@@ -11,6 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="AsyncImageLoader.Avalonia" />
         <PackageReference Include="Avalonia" />
         <PackageReference Include="Avalonia.Fonts.Inter" />
         <PackageReference Include="Avalonia.Diagnostics">
@@ -21,6 +22,8 @@
         <PackageReference Include="DynamicData" />
         <PackageReference Include="FluentAvaloniaUI" />
         <PackageReference Include="Microsoft.Extensions.Hosting" />
-        <ProjectReference Include="..\BBDown\BBDown.csproj" />
+        <PackageReference Include="Pastel" />
+        <PackageReference Include="QRCoder" />
+        <ProjectReference Include="..\BBDown.Core\BBDown.Core.csproj" />
     </ItemGroup>
 </Project>

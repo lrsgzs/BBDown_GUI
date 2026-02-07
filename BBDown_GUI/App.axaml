@@ -4,6 +4,8 @@
              xmlns:faWindowing="using:FluentAvalonia.UI.Windowing"
              xmlns:local="using:BBDown_GUI"
              xmlns:views="using:BBDown_GUI.Views"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             xmlns:controls="clr-namespace:BBDown_GUI.Controls"
              x:Class="BBDown_GUI.App"
              RequestedThemeVariant="Default">
      <Application.Styles>
@@ -16,6 +18,32 @@
          
          <Style Selector=":is(views|MainView)">
              <Setter Property="FontFamily" Value="{DynamicResource MapleMonoNfCn}"/>
+         </Style>
+         
+         <Style Selector="asyncImageLoader|AdvancedImage">
+             <Setter Property="Template">
+                 <ControlTemplate>
+                     <Grid x:Name="Root" Classes.empty="{TemplateBinding CurrentImage, Converter={x:Static ObjectConverters.IsNull}, Mode=OneWay}">
+                         <controls:FluentIcon VerticalAlignment="Center" HorizontalAlignment="Center"
+                                              Glyph="&#xE9CC;"
+                                              IsVisible="False" IsHitTestVisible="False"
+                                              x:Name="FluentIconError"
+                                              FontSize="18"
+                                              Foreground="{DynamicResource SystemFillColorCriticalBrush}"/>
+                     </Grid>
+                 </ControlTemplate>
+             </Setter>
+
+             <Style Selector="^[IsLoading=False] /template/ Grid#Root.empty">
+                 <Style Selector="^ Border#LoadingBorder">
+                     <Setter Property="IsVisible" Value="True"/>
+                     <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBackgroundBrush}"/>
+                     <Setter Property="ToolTip.Tip" Value="喔唷，图裂啦"/>
+                 </Style>
+                 <Style Selector="^ controls|FluentIcon#FluentIconError">
+                     <Setter Property="IsVisible" Value="True"/>
+                 </Style>
+             </Style>
          </Style>
      </Application.Styles>
     

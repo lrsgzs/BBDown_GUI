@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text.Json;
 using BBDown_GUI.Models;
 
@@ -27,21 +26,12 @@ public class ConfigService
     public void SaveConfig(ConfigModel config)
     {
         var filePath = GetConfigFilePath();
-        var directory = Path.GetDirectoryName(filePath);
-        
-        if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
-        {
-            Directory.CreateDirectory(directory);
-        }
-        
         var json = JsonSerializer.Serialize(config, JsonOptions);
         File.WriteAllText(filePath, json);
     }
     
     private string GetConfigFilePath()
     {
-        var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        var appName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name ?? "BBDown_GUI";
-        return Path.Combine(appData, appName, "Config", ConfigFileName);
+        return Utils.GetFilePath("Config", ConfigFileName);
     }
 }

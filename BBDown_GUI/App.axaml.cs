@@ -6,12 +6,17 @@ using System.Linq;
 using Avalonia.Markup.Xaml;
 using BBDown_GUI.Abstraction;
 using BBDown_GUI.Extensions.Registry;
+using BBDown_GUI.Services;
 using BBDown_GUI.Services.Config;
+using BBDown_GUI.Services.Logging;
 using BBDown_GUI.ViewModels;
+using BBDown_GUI.ViewModels.MainPages;
 using BBDown_GUI.Views;
 using BBDown_GUI.Views.MainPages;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 
 namespace BBDown_GUI;
 
@@ -63,9 +68,22 @@ public partial class App : Application
             .UseContentRoot(AppContext.BaseDirectory)
             .ConfigureServices(services =>
             {
+                // 日志
+                services.AddLogging(builder =>
+                {
+                    builder.AddConsoleFormatter<ClassIslandConsoleFormatter, ConsoleFormatterOptions>();
+                    builder.AddConsole(console => { console.FormatterName = "classisland"; });
+#if DEBUG
+                    builder.SetMinimumLevel(LogLevel.Trace);
+#endif
+                });
+                
                 // 配置
                 services.AddSingleton<ConfigService>();
                 services.AddSingleton<ConfigHandler>();
+                
+                // 服务
+                services.AddSingleton<BiliBiliLoginService>();
                 
                 // 主窗口
                 services.AddSingleton<MainView>();
@@ -73,14 +91,20 @@ public partial class App : Application
                 
                 // 界面 Views
                 services.AddMainPage<HomePage>();
+
+                services.AddMainPageFooter<UserPage>();
                 services.AddMainPageFooter<SettingsPage>();
                 services.AddMainPageFooterSeparator();
                 services.AddMainPageFooter<AboutPage>();
                 
                 // 界面 ViewModels
+                services.AddTransient<UserPageViewModel>();
             })
             .Build();
 
+        var logger = IAppHost.GetService<ILogger<App>>();
+        logger.LogInformation("BBDown_GUI Copyright by lrs2187(2026) Licensed under GPL3.0");
+        logger.LogInformation("Host built.");
         IAppHost.GetService<ConfigHandler>();
     }
 }

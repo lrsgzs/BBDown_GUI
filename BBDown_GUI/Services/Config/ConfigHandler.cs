@@ -1,17 +1,21 @@
 ﻿using System.ComponentModel;
-using BBDown_GUI.Abstraction;
 using BBDown_GUI.Models;
+using Microsoft.Extensions.Logging;
 
 namespace BBDown_GUI.Services.Config;
 
 public class ConfigHandler
 {
     public ConfigModel Data { get; private set; }
+    
+    private ILogger<ConfigHandler> Logger { get; }
     private ConfigService ConfigService { get; }
     
-    public ConfigHandler(ConfigService configService)
+    public ConfigHandler(ILogger<ConfigHandler> logger, ConfigService configService)
     {
+        Logger = logger;
         ConfigService = configService;
+        
         Data = new ConfigModel();
         Data.PropertyChanged += OnPropertyChanged;
         InitializeConfig();
@@ -22,7 +26,11 @@ public class ConfigHandler
     /// </summary>
     public void InitializeConfig()
     {
+        Logger.LogInformation("加载配置文件...");
+        
+        Data.PropertyChanged -= OnPropertyChanged;
         Data = ConfigService.LoadConfig();
+        Data.PropertyChanged += OnPropertyChanged;
     }
     
     /// <summary>
@@ -40,6 +48,7 @@ public class ConfigHandler
     /// </summary>
     public void Save()
     {
+        Logger.LogInformation("保存配置文件...");
         ConfigService.SaveConfig(Data);
     }
 }

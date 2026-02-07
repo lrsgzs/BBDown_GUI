@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="BBDown_GUI.Views.MainPages.UserPage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:BBDown_GUI.Views.MainPages"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             mc:Ignorable="d"
+             x:DataType="local:UserPage"
+             d:DataContext="{d:DesignInstance local:UserPage}">
+    <TabControl x:Name="UserPageTabControl">
+        <TabControl.Styles>
+            <Style Selector="TabControl#UserPageTabControl /template/ ItemsPresenter#PART_ItemsPresenter">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+            </Style>
+            
+            <Style Selector="TabControl#UserPageTabControl TabItem">
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+        </TabControl.Styles>
+        
+        <TabItem Header="网页版登录">
+            <StackPanel Orientation="Vertical" Spacing="8">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="4">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock>登录状态:</TextBlock>
+                        <TextBlock IsVisible="{Binding ViewModel.IsWebLogged}">已登录</TextBlock>
+                        <TextBlock IsVisible="{Binding !ViewModel.IsWebLogged}">未登录</TextBlock>
+                    </StackPanel>
+                    
+                    <Button VerticalAlignment="Center"
+                            Click="RefreshLoginStatusButton_OnClick">
+                        重新检查
+                    </Button>
+                </StackPanel>
+                
+                <Border HorizontalAlignment="Center"
+                        Background="White"
+                        CornerRadius="16" ClipToBounds="True">
+                    <asyncImageLoader:AdvancedImage
+                        Width="256" Height="256"
+                        Source="{Binding ViewModel.WebLoginData.QrCodePath}" />
+                </Border>
+                
+                <Button HorizontalAlignment="Center"
+                        IsEnabled="{Binding !ViewModel.IsWebLoginBusy}"
+                        Click="RefreshQrCodeButton_OnClick">
+                    刷新登录二维码
+                </Button>
+                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock>状态:</TextBlock>
+                    <TextBlock Text="{Binding ViewModel.WebLoginStatus.Reason}" />
+                    <TextBlock>(</TextBlock>
+                    <TextBlock Text="{Binding ViewModel.WebLoginStatus.Status}" />
+                    <TextBlock>)</TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </TabItem>
+        
+        <TabItem Header="TV 版登录">
+            <TextBlock HorizontalAlignment="Center">Coming soon...</TextBlock>
+        </TabItem>
+    </TabControl>
+</UserControl>
