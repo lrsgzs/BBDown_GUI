@@ -1,13 +1,13 @@
 ﻿namespace BBDown_GUI.Models;
 
-public class LoginData
+public class WebLoginData
 {
     public string QrCodePath { get; set; } = string.Empty;
     public string QrCodeKey { get; set; } = string.Empty;
 
-    public LoginData() { }
+    public WebLoginData() { }
     
-    public LoginData(string qrCodePath, string qrCodeKey)
+    public WebLoginData(string qrCodePath, string qrCodeKey)
     {
         QrCodePath = qrCodePath;
         QrCodeKey = qrCodeKey;

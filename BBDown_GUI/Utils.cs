@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace BBDown_GUI;
 
@@ -10,6 +14,8 @@ public static partial class Utils
 {
     [GeneratedRegex("(^|&)?(\\w+)=([^&]+)(&|$)?", RegexOptions.Compiled)]
     private static partial Regex QueryRegex();
+    
+    private static readonly Random Random = new();
     
     /// <summary>
     /// 获取url字符串参数, 返回参数值字符串
@@ -52,6 +58,42 @@ public static partial class Utils
             tmp.Append(orig[index]);
         }
         return tmp.ToString();
+    }
+    
+    public static string GetSign(string parms)
+    {
+        string toEncode = parms + "59b43e04ad6965f34319062b478f83dd";
+        return string.Concat(MD5.HashData(Encoding.UTF8.GetBytes(toEncode)).Select(i => i.ToString("x2")));
+    }
+
+    public static string GetTimeStamp(bool bflag)
+    {
+        DateTimeOffset ts = DateTimeOffset.Now;
+        return (bflag ? ts.ToUnixTimeSeconds() : ts.ToUnixTimeMilliseconds()).ToString();
+    }
+
+    public static string GetRandomString(int length)
+    {
+        const string chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_0123456789";
+        return new string(Enumerable.Repeat(chars, length)
+            .Select(s => s[Random.Next(s.Length)]).ToArray());
+    }
+    
+    public static string ToQueryString(NameValueCollection nameValueCollection)
+    {
+        NameValueCollection httpValueCollection = HttpUtility.ParseQueryString(string.Empty);
+        httpValueCollection.Add(nameValueCollection);
+        return httpValueCollection.ToString()!;
+    }
+    
+    public static Dictionary<string, string> ToDictionary(this NameValueCollection nameValueCollection)
+    {
+        var dict = new Dictionary<string, string>();
+        foreach (var key in nameValueCollection.AllKeys)
+        {
+            dict[key!] = nameValueCollection[key]!;
+        }
+        return dict;
     }
     
     public static string GetFilePath(params string[] strings)

@@ -24,14 +24,38 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="4">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <TextBlock>登录状态:</TextBlock>
-                        <TextBlock IsVisible="{Binding ViewModel.IsWebLogged}">已登录</TextBlock>
-                        <TextBlock IsVisible="{Binding !ViewModel.IsWebLogged}">未登录</TextBlock>
+                        <TextBlock IsVisible="{Binding ViewModel.IsWebLogged, UpdateSourceTrigger=PropertyChanged}">已登录</TextBlock>
+                        <TextBlock IsVisible="{Binding !ViewModel.IsWebLogged, UpdateSourceTrigger=PropertyChanged}">未登录</TextBlock>
                     </StackPanel>
                     
                     <Button VerticalAlignment="Center"
-                            Click="RefreshLoginStatusButton_OnClick">
+                            Click="WebRefreshLoginStatusButton_OnClick">
                         重新检查
                     </Button>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="4"
+                            IsVisible="{Binding ViewModel.IsWebLogged, UpdateSourceTrigger=PropertyChanged}">
+                    <asyncImageLoader:AdvancedImage
+                        Width="48" Height="48" CornerRadius="8" ClipToBounds="True"
+                        Source="{Binding BiliBiliLoginService.LastLoginData.Face}" />
+                    
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock>当前用户:</TextBlock>
+                            <TextBlock Text="{Binding BiliBiliLoginService.LastLoginData.UName}" />
+                            <TextBlock>(Lv</TextBlock>
+                            <TextBlock Text="{Binding BiliBiliLoginService.LastLoginData.LevelInfo.CurrentLevel}" />
+                            <TextBlock>)</TextBlock>
+                        </StackPanel>  
+                        
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock>UID:</TextBlock>
+                            <TextBlock Text="{Binding BiliBiliLoginService.LastLoginData.MId}" />
+                        </StackPanel>
+                    </StackPanel>
+                        
+                    <Button Click="WebLogoutButton_OnClick">登出</Button>
                 </StackPanel>
                 
                 <Border HorizontalAlignment="Center"
@@ -44,7 +68,7 @@
                 
                 <Button HorizontalAlignment="Center"
                         IsEnabled="{Binding !ViewModel.IsWebLoginBusy}"
-                        Click="RefreshQrCodeButton_OnClick">
+                        Click="WebRefreshQrCodeButton_OnClick">
                     刷新登录二维码
                 </Button>
                 
@@ -59,7 +83,45 @@
         </TabItem>
         
         <TabItem Header="TV 版登录">
-            <TextBlock HorizontalAlignment="Center">Coming soon...</TextBlock>
+                        <StackPanel Orientation="Vertical" Spacing="8">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="4">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock>登录状态:</TextBlock>
+                        <TextBlock IsVisible="{Binding ViewModel.IsTvLogged, UpdateSourceTrigger=PropertyChanged}">已登录</TextBlock>
+                        <TextBlock IsVisible="{Binding !ViewModel.IsTvLogged, UpdateSourceTrigger=PropertyChanged}">未登录</TextBlock>
+                    </StackPanel>
+                    
+                    <Button VerticalAlignment="Center"
+                            Click="TvRefreshLoginStatusButton_OnClick">
+                        重新检查
+                    </Button>
+                    
+                    <Button IsVisible="{Binding ViewModel.IsTvLogged}"
+                            Click="TvLogoutButton_OnClick">登出</Button>
+                </StackPanel>
+                
+                <Border HorizontalAlignment="Center"
+                        Background="White"
+                        CornerRadius="16" ClipToBounds="True">
+                    <asyncImageLoader:AdvancedImage
+                        Width="256" Height="256"
+                        Source="{Binding ViewModel.TvLoginData.QrCodePath}" />
+                </Border>
+                
+                <Button HorizontalAlignment="Center"
+                        IsEnabled="{Binding !ViewModel.IsTvLoginBusy}"
+                        Click="TvRefreshQrCodeButton_OnClick">
+                    刷新登录二维码
+                </Button>
+                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock>状态:</TextBlock>
+                    <TextBlock Text="{Binding ViewModel.TvLoginStatus.Reason}" />
+                    <TextBlock>(</TextBlock>
+                    <TextBlock Text="{Binding ViewModel.TvLoginStatus.Status}" />
+                    <TextBlock>)</TextBlock>
+                </StackPanel>
+            </StackPanel>
         </TabItem>
     </TabControl>
 </UserControl>

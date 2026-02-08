@@ -11,13 +11,19 @@ public partial class UserPageViewModel : ObservableRecipient
     public ConfigModel Config { get; }
     public BiliBiliLoginService BiliBiliLoginService { get; }
     
-    [ObservableProperty] private bool _isWebLogged = false;
     [ObservableProperty] private string _qrcodeUrl = string.Empty;
     
     // web 登录
+    [ObservableProperty] private bool _isWebLogged = false;
     [ObservableProperty] private bool _isWebLoginBusy = false;
-    [ObservableProperty] private LoginData _webLoginData = new();
+    [ObservableProperty] private WebLoginData _webLoginData = new();
     [ObservableProperty] private LoginStatus _webLoginStatus = new();
+    
+    // tv 登录
+    [ObservableProperty] private bool _isTvLogged = false;
+    [ObservableProperty] private bool _isTvLoginBusy = false;
+    [ObservableProperty] private TvLoginData _tvLoginData = new();
+    [ObservableProperty] private LoginStatus _tvLoginStatus = new();
 
     public UserPageViewModel(ConfigHandler configHandler, BiliBiliLoginService biliBiliLoginService)
     {
@@ -28,5 +34,6 @@ public partial class UserPageViewModel : ObservableRecipient
     public async Task Initialize()
     {
         IsWebLogged = await BiliBiliLoginService.CheckWebLogin();
+        IsTvLogged = await BiliBiliLoginService.CheckTvLogin();
     }
 }
