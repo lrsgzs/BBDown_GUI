@@ -14,9 +14,9 @@ namespace BBDown_GUI.Views.MainPages;
 [MainPageInfo("账号管理", "account", "\uECE5")]
 public partial class AccountPage : UserControl
 {
-    public UserPageViewModel ViewModel { get; } = IAppHost.GetService<UserPageViewModel>();
-    public BiliBiliLoginService BiliBiliLoginService { get; } = IAppHost.GetService<BiliBiliLoginService>();
+    public AccountPageViewModel ViewModel { get; } = IAppHost.GetService<AccountPageViewModel>();
     public ConfigHandler ConfigHandler { get; } = IAppHost.GetService<ConfigHandler>();
+    public BiliBiliLoginService BiliBiliLoginService { get; } = IAppHost.GetService<BiliBiliLoginService>();
 
     private ILogger<AccountPage> Logger { get; } = IAppHost.GetService<ILogger<AccountPage>>();
     

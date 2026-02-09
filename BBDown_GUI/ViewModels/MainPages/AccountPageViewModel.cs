@@ -6,7 +6,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BBDown_GUI.ViewModels.MainPages;
 
-public partial class UserPageViewModel : ObservableRecipient
+public partial class AccountPageViewModel : ObservableRecipient
 {
     public ConfigModel Config { get; }
     public BiliBiliLoginService BiliBiliLoginService { get; }
@@ -25,7 +25,7 @@ public partial class UserPageViewModel : ObservableRecipient
     [ObservableProperty] private TvLoginData _tvLoginData = new();
     [ObservableProperty] private LoginStatus _tvLoginStatus = new();
 
-    public UserPageViewModel(ConfigHandler configHandler, BiliBiliLoginService biliBiliLoginService)
+    public AccountPageViewModel(ConfigHandler configHandler, BiliBiliLoginService biliBiliLoginService)
     {
         Config = configHandler.Data;
         BiliBiliLoginService = biliBiliLoginService;

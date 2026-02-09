@@ -92,15 +92,17 @@ public partial class App : Application
                 // 界面 Views
                 services.AddMainPage<HomePage>();
                 services.AddMainPageSeparator();
+                services.AddMainPage<AccountPage>();
                 services.AddMainPage<DownloadPage>();
 
-                services.AddMainPageFooter<AccountPage>();
                 services.AddMainPageFooter<SettingsPage>();
-                services.AddMainPageFooterSeparator();
                 services.AddMainPageFooter<AboutPage>();
+                services.AddMainPageFooterSeparator();
+                services.AddMainPageFooter<DebugPage>();
                 
                 // 界面 ViewModels
-                services.AddTransient<UserPageViewModel>();
+                services.AddTransient<DownloadPageViewModel>();
+                services.AddTransient<AccountPageViewModel>();
             })
             .Build();
 
