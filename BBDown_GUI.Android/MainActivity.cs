@@ -6,7 +6,7 @@ using Avalonia.Android;
 namespace BBDown_GUI.Android;
 
 [Activity(
-    Label = "BBDown_GUI.Android",
+    Label = "BBDown_GUI",
     Theme = "@style/MyTheme.NoActionBar",
     Icon = "@drawable/icon",
     MainLauncher = true,
