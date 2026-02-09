@@ -1,5 +1,7 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Interactivity;
 using BBDown_GUI.Attributes;
+using BBDown_GUI.Helpers.UI;
 
 namespace BBDown_GUI.Views.MainPages;
 
@@ -9,5 +11,10 @@ public partial class DebugPage : UserControl
     public DebugPage()
     {
         InitializeComponent();
+    }
+
+    private void ShowToastButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        this.ShowToast("测试测试~");
     }
 }

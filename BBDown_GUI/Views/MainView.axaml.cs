@@ -1,5 +1,6 @@
 using System.Linq;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
@@ -20,6 +21,9 @@ public partial class MainView : UserControl
     public MainViewModel ViewModel { get; } = IAppHost.GetService<MainViewModel>();
     private const string DefaultMainPageId = "home";
     
+    private AppToastAdorner? _appToastAdorner;
+    private bool _isAdornerAdded;
+    
     public MainView()
     {
         DataContext = this;
@@ -35,6 +39,17 @@ public partial class MainView : UserControl
     private void OnLoaded(object? sender, RoutedEventArgs e)
     {
         SelectNavigationItemById(DefaultMainPageId);
+        
+        if (Content is not Control element || _isAdornerAdded)
+        {
+            return;
+        }
+
+        var layer = AdornerLayer.GetAdornerLayer(element);
+        var appToastAdorner = _appToastAdorner = new AppToastAdorner(this);
+        layer?.Children.Add(appToastAdorner);
+        AdornerLayer.SetAdornedElement(appToastAdorner, this);
+        _isAdornerAdded = true;
     }
     
     private void OnUnloaded(object? sender, RoutedEventArgs e)

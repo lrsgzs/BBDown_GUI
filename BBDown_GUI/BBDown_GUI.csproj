@@ -24,6 +24,7 @@
         <PackageReference Include="Microsoft.Extensions.Hosting" />
         <PackageReference Include="Pastel" />
         <PackageReference Include="QRCoder" />
+        <PackageReference Include="Xaml.Behaviors" />
         <ProjectReference Include="..\BBDown.Core\BBDown.Core.csproj" />
     </ItemGroup>
 </Project>

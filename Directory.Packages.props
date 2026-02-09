@@ -26,5 +26,6 @@
     <PackageVersion Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
     <PackageVersion Include="Google.Protobuf" Version="3.28.3" />
     <PackageVersion Include="Grpc.Tools" Version="2.67.0" />
+    <PackageVersion Include="Xaml.Behaviors" Version="11.3.9" />
   </ItemGroup>
 </Project>
