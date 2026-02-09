@@ -6,8 +6,10 @@
              x:Class="BBDown_GUI.Views.MainPages.AboutPage">
     <ScrollViewer>
         <StackPanel Orientation="Vertical">
-            <TextBlock>感谢您选择使用 BBDown GUI，一个基于 BBDown 的使用 Avalonia 框架开发的桌面应用程序。</TextBlock>
-            <TextBlock>本程序采用 GPL 3.0 协议分发。您可以在程序目录下的 LICENSE 找到协议文本，及 LICENSE-ZH 非官方中文翻译。</TextBlock>
+            <TextBlock TextWrapping="Wrap">
+                感谢您选择使用 BBDown GUI，一个基于 BBDown.Core 的使用 Avalonia 框架开发的桌面应用程序。<LineBreak />
+                本程序采用 GPL 3.0 协议分发。您可以在 <HyperlinkButton NavigateUri="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU 官方网站</HyperlinkButton> 上找到协议文本，及非官方中文翻译。
+            </TextBlock>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

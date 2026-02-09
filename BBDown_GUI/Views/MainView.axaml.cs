@@ -57,7 +57,7 @@ public partial class MainView : UserControl
                 .Select(info => info.ToNavigationViewItemBase()));
     }
 
-    private void SelectNavigationItemById(string id)
+    public void SelectNavigationItemById(string id)
     {
         var info = MainPagesRegistryService.Items.FirstOrDefault(info => info.Id == id) ??
                    MainPagesRegistryService.FooterItems.FirstOrDefault(info => info.Id == id);

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="BBDown_GUI.Views.MainPages.UserPage"
+﻿<UserControl x:Class="BBDown_GUI.Views.MainPages.AccountPage"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,8 +6,8 @@
              xmlns:local="using:BBDown_GUI.Views.MainPages"
              xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
              mc:Ignorable="d"
-             x:DataType="local:UserPage"
-             d:DataContext="{d:DesignInstance local:UserPage}">
+             x:DataType="local:AccountPage"
+             d:DataContext="{d:DesignInstance local:AccountPage}">
     <TabControl x:Name="UserPageTabControl">
         <TabControl.Styles>
             <Style Selector="TabControl#UserPageTabControl /template/ ItemsPresenter#PART_ItemsPresenter">

@@ -11,16 +11,16 @@ using Microsoft.Extensions.Logging;
 
 namespace BBDown_GUI.Views.MainPages;
 
-[MainPageInfo("用户", "user", "\uECE5")]
-public partial class UserPage : UserControl
+[MainPageInfo("账号管理", "account", "\uECE5")]
+public partial class AccountPage : UserControl
 {
     public UserPageViewModel ViewModel { get; } = IAppHost.GetService<UserPageViewModel>();
     public BiliBiliLoginService BiliBiliLoginService { get; } = IAppHost.GetService<BiliBiliLoginService>();
     public ConfigHandler ConfigHandler { get; } = IAppHost.GetService<ConfigHandler>();
 
-    private ILogger<UserPage> Logger { get; } = IAppHost.GetService<ILogger<UserPage>>();
+    private ILogger<AccountPage> Logger { get; } = IAppHost.GetService<ILogger<AccountPage>>();
     
-    public UserPage()
+    public AccountPage()
     {
         DataContext = this;
         InitializeComponent();

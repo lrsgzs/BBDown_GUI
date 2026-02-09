@@ -91,8 +91,10 @@ public partial class App : Application
                 
                 // 界面 Views
                 services.AddMainPage<HomePage>();
+                services.AddMainPageSeparator();
+                services.AddMainPage<DownloadPage>();
 
-                services.AddMainPageFooter<UserPage>();
+                services.AddMainPageFooter<AccountPage>();
                 services.AddMainPageFooter<SettingsPage>();
                 services.AddMainPageFooterSeparator();
                 services.AddMainPageFooter<AboutPage>();
