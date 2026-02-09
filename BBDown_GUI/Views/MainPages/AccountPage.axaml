@@ -8,7 +8,7 @@
              mc:Ignorable="d"
              x:DataType="local:AccountPage"
              d:DataContext="{d:DesignInstance local:AccountPage}">
-    <TabControl x:Name="UserPageTabControl">
+    <TabControl x:Name="UserPageTabControl" Margin="12 12 18 12">
         <TabControl.Styles>
             <Style Selector="TabControl#UserPageTabControl /template/ ItemsPresenter#PART_ItemsPresenter">
                 <Setter Property="HorizontalAlignment" Value="Center" />

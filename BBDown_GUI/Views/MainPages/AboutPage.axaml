@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BBDown_GUI.Views.MainPages.AboutPage">
-    <ScrollViewer>
+    <ScrollViewer Margin="12 12 18 12">
         <StackPanel Orientation="Vertical">
             <TextBlock TextWrapping="Wrap">
                 感谢您选择使用 BBDown GUI，一个基于 BBDown.Core 的使用 Avalonia 框架开发的桌面应用程序。<LineBreak />

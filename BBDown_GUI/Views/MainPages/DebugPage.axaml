@@ -6,11 +6,13 @@
              xmlns:fa="using:FluentAvalonia.UI.Controls"
              xmlns:controls="clr-namespace:BBDown_GUI.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450">
-    <fa:SettingsExpander IconSource="{controls:FluentIconSource &#xE06F;}"
-                         Header="功能测试" Description="测试几个小功能"
-                         IsExpanded="True">
-        <fa:SettingsExpanderItem Content="弹出 Toast"
-                                 IsClickEnabled="True"
-                                 Click="ShowToastButton_OnClick"/>
-    </fa:SettingsExpander>
+    <StackPanel Margin="12 12 18 12" Spacing="8">
+        <fa:SettingsExpander IconSource="{controls:FluentIconSource &#xE06F;}"
+                             Header="功能测试" Description="测试几个小功能"
+                             IsExpanded="True">
+            <fa:SettingsExpanderItem Content="弹出 Toast"
+                                     IsClickEnabled="True"
+                                     Click="ShowToastButton_OnClick"/>
+        </fa:SettingsExpander>
+    </StackPanel>
 </UserControl>

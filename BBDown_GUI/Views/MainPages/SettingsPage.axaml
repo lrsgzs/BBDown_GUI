@@ -4,5 +4,5 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BBDown_GUI.Views.MainPages.SettingsPage">
-    Welcome to Avalonia! Settings
+    <TextBlock Margin="12 12 18 12">Welcome to Avalonia! Settings</TextBlock>
 </UserControl>
