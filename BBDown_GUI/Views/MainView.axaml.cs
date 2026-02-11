@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -12,11 +13,12 @@ using BBDown_GUI.Services.Config;
 using BBDown_GUI.ViewModels;
 using DynamicData;
 using FluentAvalonia.UI.Controls;
+using FluentAvalonia.UI.Navigation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BBDown_GUI.Views;
 
-public partial class MainView : UserControl
+public partial class MainView : UserControl, INavigationPageFactory
 {
     public MainViewModel ViewModel { get; } = IAppHost.GetService<MainViewModel>();
     private const string DefaultMainPageId = "home";
@@ -29,6 +31,7 @@ public partial class MainView : UserControl
         DataContext = this;
         InitializeComponent();
 
+        NavigationFrame.NavigationPageFactory = this;
         BuildNavigationMenuItems();
         
         RenderOptions.SetTextRenderingMode(this, TextRenderingMode.Antialias);
@@ -95,7 +98,7 @@ public partial class MainView : UserControl
         ViewModel.FrameContent = null;
         SelectNavigationItem(info);
         ViewModel.SelectedPageInfo = info;
-        ViewModel.FrameContent = IAppHost.Host!.Services.GetKeyedService<UserControl>(info.Id);
+        NavigationFrame.NavigateFromObject(info);
     }
     
     private void NavigationView_OnItemInvoked(object? sender, NavigationViewItemInvokedEventArgs e)
@@ -109,5 +112,20 @@ public partial class MainView : UserControl
     private void TogglePaneButton_OnClick(object? sender, RoutedEventArgs e)
     {
         NavigationView.IsPaneOpen = !NavigationView.IsPaneOpen;
+    }
+
+    public Control? GetPage(Type srcType)
+    {
+        return Activator.CreateInstance(srcType) as Control;
+    }
+
+    public Control? GetPageFromObject(object target)
+    {
+        if (target is not MainPageInfo info)
+        {
+            return null;
+        }
+        
+        return IAppHost.Host!.Services.GetKeyedService<UserControl>(info.Id);
     }
 }

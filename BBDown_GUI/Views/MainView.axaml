@@ -57,7 +57,8 @@
                                Theme="{StaticResource TitleTextBlockStyle}"/>
                 </Grid>
                 
-                <fa:Frame Grid.Row="1" CacheSize="0"
+                <fa:Frame Grid.Row="1" x:Name="NavigationFrame"
+                          IsNavigationStackEnabled="False" CacheSize="0"
                           Content="{Binding ViewModel.FrameContent}"/>
             </Grid>
         </fa:NavigationView>
