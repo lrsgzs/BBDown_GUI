@@ -67,12 +67,13 @@
                         第二步：确定信息无误
                     </TextBlock>
                     
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <asyncImageLoader:AdvancedImage Source="{Binding ViewModel.VideoInfo.Pic}"
-                                                        Width="300" Height="225" />
-                        <TextBlock VerticalAlignment="Center"
+                    <Grid Grid.Row="1" ColumnDefinitions="Auto *" ColumnSpacing="4">
+                        <asyncImageLoader:AdvancedImage Grid.Column="0" MaxWidth="300" MaxHeight="225"
+                                                        CornerRadius="8" ClipToBounds="True"
+                                                        Source="{Binding ViewModel.VideoInfo.Pic}" />
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" TextWrapping="Wrap"
                                    Text="{Binding ViewModel.VideoInfo.Title}" />
-                    </StackPanel>
+                    </Grid>
                     
                     <Panel Grid.Row="2" HorizontalAlignment="Stretch">
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center">选择分 P</TextBlock>
