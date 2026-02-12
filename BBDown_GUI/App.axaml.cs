@@ -30,6 +30,7 @@ public partial class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         BuildHost();
+        
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
@@ -84,6 +85,7 @@ public partial class App : Application
                 
                 // 服务
                 services.AddSingleton<BiliBiliLoginService>();
+                services.AddSingleton<BiliBiliVideoService>();
                 
                 // 主窗口
                 services.AddSingleton<MainView>();

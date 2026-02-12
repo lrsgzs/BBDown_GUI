@@ -5,8 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
+using BBDown.Core.Util;
 
 namespace BBDown_GUI;
 
@@ -62,13 +65,13 @@ public static partial class Utils
     
     public static string GetSign(string parms)
     {
-        string toEncode = parms + "59b43e04ad6965f34319062b478f83dd";
+        var toEncode = parms + "59b43e04ad6965f34319062b478f83dd";
         return string.Concat(MD5.HashData(Encoding.UTF8.GetBytes(toEncode)).Select(i => i.ToString("x2")));
     }
 
     public static string GetTimeStamp(bool bflag)
     {
-        DateTimeOffset ts = DateTimeOffset.Now;
+        var ts = DateTimeOffset.Now;
         return (bflag ? ts.ToUnixTimeSeconds() : ts.ToUnixTimeMilliseconds()).ToString();
     }
 
@@ -81,7 +84,7 @@ public static partial class Utils
     
     public static string ToQueryString(NameValueCollection nameValueCollection)
     {
-        NameValueCollection httpValueCollection = HttpUtility.ParseQueryString(string.Empty);
+        var httpValueCollection = HttpUtility.ParseQueryString(string.Empty);
         httpValueCollection.Add(nameValueCollection);
         return httpValueCollection.ToString()!;
     }
@@ -94,6 +97,21 @@ public static partial class Utils
             dict[key!] = nameValueCollection[key]!;
         }
         return dict;
+    }
+    
+    public static string FormatTime(int time, bool absolute = false)
+    {
+        var ts = TimeSpan.FromSeconds(time);
+        var totalHours = (int)ts.TotalHours;
+        var minutes = ts.Minutes;
+        var seconds = ts.Seconds;
+
+        if (absolute)
+        {
+            return $"{totalHours:D2}:{minutes:D2}:{seconds:D2}";
+        }
+
+        return totalHours == 0 ? $"{minutes:D2}m{seconds:D2}s" : $"{totalHours}h{minutes:D2}m{seconds:D2}s";
     }
     
     public static string GetFilePath(params string[] strings)

@@ -1,8 +1,131 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl x:Class="BBDown_GUI.Views.MainPages.DownloadPage"
+             xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:BBDown_GUI.Views.MainPages"
+             xmlns:system="using:System"
+             xmlns:controls="using:BBDown_GUI.Controls"
+             xmlns:fa="using:FluentAvalonia.UI.Controls"
+             xmlns:asyncImageLoader="using:AsyncImageLoader"
+             xmlns:enums="using:BBDown_GUI.Enums"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BBDown_GUI.Views.MainPages.DownloadPage">
-    Welcome to Avalonia! Download coming soon.
+             x:DataType="local:DownloadPage"
+             d:DataContext="{d:DesignInstance local:DownloadPage}">
+    <Grid RowDefinitions="* Auto Auto">
+        <Carousel Grid.Row="0" Margin="8" x:Name="SlideCarousel"
+                  SelectedIndex="{Binding ViewModel.PageIndex}">
+            <Carousel.PageTransition>
+                <CompositePageTransition>
+                    <PageSlide Duration="0:0:0.3" Orientation="Horizontal"
+                               SlideOutEasing="0.76, 0, 0.24, 1"
+                               SlideInEasing="0.76, 0, 0.24, 1"/>
+                    <CrossFade Duration="0:0:0.3"/>
+                </CompositePageTransition>
+            </Carousel.PageTransition>
+            
+            <Carousel.Items>
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center" MaxWidth="640"
+                            Orientation="Vertical" Spacing="8">
+                    <TextBlock FontWeight="Normal" FontSize="24">
+                        第一步：输入视频链接
+                    </TextBlock>
+                        
+                    <TextBox Text="{Binding ViewModel.VideoLink}"
+                             Watermark="在我这里输入哟~"/>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center">下载模式：</TextBlock>
+                        
+                        <TabStrip VerticalAlignment="Center"
+                                  Classes="toggle" Theme="{StaticResource TabStripStyle}"
+                                  SelectedIndex="{Binding ViewModel.Mode}">
+                            <TabStripItem>Web</TabStripItem>
+                            <TabStripItem>Tv</TabStripItem>
+                        </TabStrip>
+                    </StackPanel>
+                    
+                    <CheckBox IsChecked="{Binding ViewModel.UseIntlApi}"
+                              IsVisible="{Binding ViewModel.Mode, Converter={x:Static ObjectConverters.Equal}, ConverterParameter={x:Static enums:DownloadMode.Web}}">
+                        使用国际版(东南亚视频)解析模式
+                    </CheckBox>
+                    
+                    <Panel>
+                        <Button HorizontalAlignment="Right"
+                                x:Name="Page1NextButton"
+                                Tag="{Binding ViewModel.VideoLink, Converter={x:Static ObjectConverters.NotEqual}, ConverterParameter={x:Static system:String.Empty}}"
+                                IsEnabled="{Binding #Page1NextButton.Tag}"
+                                Classes.accent="{Binding #Page1NextButton.Tag}"
+                                Click="NextButton_OnClick">
+                            <controls:IconText Glyph="&#xE44E;" Text="下一步" />
+                        </Button>
+                    </Panel>
+                </StackPanel>
+                
+                <Grid RowDefinitions="Auto Auto Auto * Auto" RowSpacing="8">
+                    <TextBlock Grid.Row="0" FontWeight="Normal" FontSize="24">
+                        第二步：确定信息无误
+                    </TextBlock>
+                    
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <asyncImageLoader:AdvancedImage Source="{Binding ViewModel.VideoInfo.Pic}"
+                                                        Width="300" Height="225" />
+                        <TextBlock VerticalAlignment="Center"
+                                   Text="{Binding ViewModel.VideoInfo.Title}" />
+                    </StackPanel>
+                    
+                    <Panel Grid.Row="2" HorizontalAlignment="Stretch">
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center">选择分 P</TextBlock>
+                        <fa:NumberBox HorizontalAlignment="Right"
+                                      SpinButtonPlacementMode="Hidden" MinWidth="160"
+                                      ValidationMode="InvalidInputOverwritten" PlaceholderText="1"
+                                      Value="{Binding ViewModel.SelectedPage}" />
+                    </Panel>
+                    
+                    <ListBox Grid.Row="3"
+                             ItemsSource="{Binding ViewModel.Pages}"
+                             SelectionMode="Single"
+                             SelectedValue="{Binding ViewModel.SelectedPage}"
+                             SelectedValueBinding="{Binding Index}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock>[</TextBlock>
+                                    <TextBlock Text="{Binding Index}" />
+                                    <TextBlock>]</TextBlock>
+                                    <TextBlock Text="{Binding Title}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    
+                    <Panel Grid.Row="4">
+                        <Button HorizontalAlignment="Left"
+                                x:Name="Page2PrevButton"
+                                Click="PrevButton_OnClick">
+                            <controls:IconText Glyph="&#xE44C;" Text="上一步" />
+                        </Button>
+                        
+                        <Button HorizontalAlignment="Right"
+                                x:Name="Page2NextButton"
+                                IsEnabled="False">
+                            <controls:IconText Glyph="&#xE44E;" Text="下一步" />
+                        </Button>
+                    </Panel>
+                </Grid>
+                
+                <ScrollViewer Grid.Row="1">
+                    <StackPanel Spacing="4">
+                        <TextBlock>333</TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+            </Carousel.Items>
+        </Carousel>
+    </Grid>
 </UserControl>
