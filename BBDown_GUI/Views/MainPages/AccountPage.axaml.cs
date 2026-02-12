@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using BBDown_GUI.Abstraction;
 using BBDown_GUI.Attributes;
-using BBDown_GUI.Models;
+using BBDown_GUI.Models.Passport;
 using BBDown_GUI.Services;
 using BBDown_GUI.Services.Config;
 using BBDown_GUI.ViewModels.MainPages;

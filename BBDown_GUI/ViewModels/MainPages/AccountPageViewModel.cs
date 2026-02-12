@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using BBDown_GUI.Models;
+using BBDown_GUI.Models.Passport;
 using BBDown_GUI.Services;
 using BBDown_GUI.Services.Config;
 using CommunityToolkit.Mvvm.ComponentModel;

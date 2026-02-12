@@ -1,6 +1,6 @@
 ﻿using System.Collections.Specialized;
 
-namespace BBDown_GUI.Models;
+namespace BBDown_GUI.Models.Passport;
 
 public class TvLoginData
 {
