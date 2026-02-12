@@ -83,7 +83,7 @@ public partial class DownloadPage : UserControl
 
         if (!isLoggedIn)
         {
-            this.ShowWarningToast("你尚未登录 B 站账号, 解析可能受到限制L");
+            this.ShowWarningToast("你尚未登录 B 站账号, 解析可能受到限制。");
         }
         
         var aidOri = await BiliBiliVideoService.GetAvIdAsync(ViewModel.VideoLink);
