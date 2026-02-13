@@ -166,5 +166,8 @@ public partial class DownloadPage : UserControl
                 Title = page.title,
                 DurationInt = page.dur
             }));
+
+        ViewModel.SelectedPage = ViewModel.Pages.First();
+        ViewModel.SelectedPageIndex = 1;
     }
 }

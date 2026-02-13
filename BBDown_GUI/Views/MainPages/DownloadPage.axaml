@@ -46,7 +46,7 @@
                     </StackPanel>
                     
                     <CheckBox IsChecked="{Binding ViewModel.UseIntlApi}"
-                              IsVisible="{Binding ViewModel.Mode, Converter={x:Static ObjectConverters.Equal}, ConverterParameter={x:Static enums:DownloadMode.Web}}">
+                              IsEnabled="{Binding ViewModel.Mode, Converter={x:Static ObjectConverters.Equal}, ConverterParameter={x:Static enums:DownloadMode.Web}}">
                         使用国际版(东南亚视频)解析模式
                     </CheckBox>
                     
@@ -78,15 +78,16 @@
                     <Panel Grid.Row="2" HorizontalAlignment="Stretch">
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center">选择分 P</TextBlock>
                         <fa:NumberBox HorizontalAlignment="Right"
-                                      SpinButtonPlacementMode="Hidden" MinWidth="160"
+                                      SpinButtonPlacementMode="Inline" MinWidth="160"
                                       ValidationMode="InvalidInputOverwritten" PlaceholderText="1"
-                                      Value="{Binding ViewModel.SelectedPage}" />
+                                      Value="{Binding ViewModel.SelectedPageIndex}" />
                     </Panel>
                     
                     <ListBox Grid.Row="3"
                              ItemsSource="{Binding ViewModel.Pages}"
                              SelectionMode="Single"
-                             SelectedValue="{Binding ViewModel.SelectedPage}"
+                             SelectedItem="{Binding ViewModel.SelectedPage}"
+                             SelectedValue="{Binding ViewModel.SelectedPageIndex}"
                              SelectedValueBinding="{Binding Index}">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -97,9 +98,9 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock>[</TextBlock>
+                                    <TextBlock>[P</TextBlock>
                                     <TextBlock Text="{Binding Index}" />
-                                    <TextBlock>]</TextBlock>
+                                    <TextBlock>] </TextBlock>
                                     <TextBlock Text="{Binding Title}"/>
                                 </StackPanel>
                             </DataTemplate>

@@ -15,6 +15,7 @@ public partial class MainWindow : AppWindow
         SplashScreen = new EmptySplashScreen();
         InitializeComponent();
 
+        TitleBar.Height = 48;
         TitleBar.ExtendsContentIntoTitleBar = true;
         TitleBar.TitleBarHitTestType = TitleBarHitTestType.Complex;
     }

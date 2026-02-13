@@ -33,6 +33,11 @@
         <Setter Property="FontFamily" Value="{DynamicResource MapleMonoNfCn}"/>
     </Style>
     
+    <!-- E70E 为向上箭头 E70D 为向下箭头 -->
+    <Style Selector=":is(TextBlock)[Text=&#xE70E;], :is(TextBlock)[Text=&#xE70D;]">
+        <Setter Property="FontFamily" Value="{DynamicResource SymbolThemeFontFamily}"/>
+    </Style>
+    
     <Style Selector="asyncImageLoader|AdvancedImage">
         <Setter Property="Template">
             <ControlTemplate>

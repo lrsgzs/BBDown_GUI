@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using BBDown_GUI.Enums;
 using BBDown_GUI.Models;
 using BBDown_GUI.Models.Video;
@@ -28,11 +30,26 @@ public partial class DownloadPageViewModel : ObservableRecipient
     [ObservableProperty] private ObservableCollection<VideoPageInfo> _pages = [];
     
     // step 2
-    [ObservableProperty] private int _selectedPage = 1;
+    [ObservableProperty] private VideoPageInfo? _selectedPage = null;
+    [ObservableProperty] private int _selectedPageIndex = 1;
     
     public DownloadPageViewModel(ConfigHandler configHandler, BiliBiliLoginService biliBiliLoginService)
     {
         Config = configHandler.Data;
         BiliBiliLoginService = biliBiliLoginService;
+
+        PropertyChanged += (sender, args) =>
+        {
+            if (args.PropertyName != nameof(SelectedPageIndex)) return;
+            
+            if (SelectedPageIndex < 1)
+            {
+                SelectedPageIndex = 1;
+            }
+            else if (SelectedPageIndex > Pages.Last().Index)
+            {
+                SelectedPageIndex = Pages.Last().Index;
+            }
+        };
     }
 }
